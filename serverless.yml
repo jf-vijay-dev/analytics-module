@@ -1,0 +1,19 @@
+service: nestjs-lambda
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+
+functions:
+  api:
+    handler: src/lambda.handler
+    events:
+      - http:
+          path: "{proxy+}"
+          method: any
+          cors: true
+
+plugins:
+  - serverless-offline
